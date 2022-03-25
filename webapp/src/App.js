@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React from 'react';
+import {
+  Route,
+  Routes,
+  BrowserRouter
+} from 'react-router-dom'
 import './App.css';
+import CoinsListPage from './coinslistpage/CoinsListPage'
+import CoinInfoPage from './coininfopage/CoinInfoPage'
+import NotFoundPage from './notfoundpage/NotFoundPage'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+
+    const appElement =
+      <div className="App">
+        <header className="App-header">
+          <span><p>Coin Watch</p></span>
+        </header>
+
+        <div className="App-container">
+          <BrowserRouter>
+            <Routes>
+              <Route exact path="/info" element={<CoinInfoPage />} />
+              <Route exact path="/" element={<CoinsListPage><div></div></CoinsListPage>} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </div>;
+
+    return appElement;
+  }
 }
 
 export default App;
