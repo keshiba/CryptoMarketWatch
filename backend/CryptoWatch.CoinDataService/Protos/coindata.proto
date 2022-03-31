@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CryptoWatch.CoinDataService";
+
+service CoinDataFetcher {
+
+  rpc GetCoinDataById (CoinDataLookupByIdModel) returns (CoinDataResponseModel);
+
+  rpc GetCoinDataByName (CoinDataLookupByNameModel) returns (CoinDataResponseModel);
+
+  rpc GetAllCoins (CoinDataAllModel) returns (CoinDataResponseModel);
+}
+
+message CoinDataLookupByIdModel {
+
+  string id = 1;
+}
+
+message CoinDataLookupByNameModel {
+
+	string name = 1;
+}
+
+message CoinDataResponseModel {
+
+	bool is_found = 1;
+	repeated CoinDataModel data = 2;
+}
+
+message CoinDataModel {
+
+  string id = 1;
+  string symbol = 2;
+  string name = 3;
+}
+
+message CoinDataAllModel {
+
+}

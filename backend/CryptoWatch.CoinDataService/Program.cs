@@ -1,10 +1,24 @@
-using CoinDataProvider;
+using CryptoWatch.CoinDataService.Services;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+namespace CryptoWatch.WebApi
+{
+    public class Program
     {
-        services.AddHostedService<Worker>();
-    })
-    .Build();
+        static void Main(string[] args)
+        {
 
-await host.RunAsync();
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddGrpc();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            app.MapGrpcService<CoinDataFetcherService>();
+            app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");
+
+            app.Run();
+        }
+    }
+}
